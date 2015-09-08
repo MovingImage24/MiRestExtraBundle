@@ -1,10 +1,10 @@
 # Mi RestExtraBundle
 
 [![Build Status](https://travis-ci.org/MovingImage24/MiRestExtraBundle.svg?branch=master)](https://travis-ci.org/MovingImage24/MiRestExtraBundle)
-[![Latest Stable Version](https://poser.pugx.org/mi/MiRestExtraBundle/v/stable)](https://packagist.org/packages/mi/MiRestExtraBundle)
-[![Latest Unstable Version](https://poser.pugx.org/mi/MiRestExtraBundle/v/unstable)](https://packagist.org/packages/mi/MiRestExtraBundle)
-[![Total Downloads](https://poser.pugx.org/mi/MiRestExtraBundle/downloads)](https://packagist.org/packages/mi/MiRestExtraBundle)
-[![License](https://poser.pugx.org/mi/MiRestExtraBundle/license)](https://packagist.org/packages/mi/MiRestExtraBundle)
+[![Latest Stable Version](https://poser.pugx.org/mi/rest-extra-bundle/v/stable)](https://packagist.org/packages/mi/rest-extra-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/mi/rest-extra-bundle/v/unstable)](https://packagist.org/packages/mi/rest-extra-bundle)
+[![Total Downloads](https://poser.pugx.org/mi/rest-extra-bundle/downloads)](https://packagist.org/packages/mi/rest-extra-bundle)
+[![License](https://poser.pugx.org/mi/rest-extra-bundle/license)](https://packagist.org/packages/mi/rest-extra-bundle)
 
 ## Overview
 
