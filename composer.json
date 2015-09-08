@@ -1,0 +1,32 @@
+{
+  "name": "mi/rest-extra-bundle",
+  "description": "Helper to avoid annotations with FOSRestBundle and SensioFrameworkExtraBundle",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alexander Miehe",
+      "email": "alexander.miehe@movingimage.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.6.0",
+    "friendsofsymfony/rest-bundle": "^1.7",
+    "sensio/framework-extra-bundle": "^3.0"
+  },
+  "require-dev": {
+    "symfony/framework-bundle": "~2.7",
+    "phpunit/phpunit": "^4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mi\\Bundle\\RestExtraBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mi\\Bundle\\RestExtraBundle\\Tests\\": "tests/"
+    }
+  }
+}
