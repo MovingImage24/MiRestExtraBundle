@@ -1,6 +1,6 @@
 <?php
 
-namespace Mi24\Bundle\CustomerControlCenter\InstanceBundle\DependencyInjection;
+namespace Mi\Bundle\RestExtraBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  *
  * @codeCoverageIgnore
  */
-class Mi2RestExtraExtension extends Extension
+class MiRestExtraExtension extends Extension
 {
     /**
      * Loads a specific configuration.
