@@ -33,7 +33,44 @@
 
 ## Usage
 
-...
+### ParamConverterListener
+
+    ```yaml
+    #routing.yml
+    mi_rest_extra_create:
+        ...
+        defaults:
+          ...
+          _converters:
+            note:
+                name: note
+                converter: fos_rest.request_body
+                class: Mi\RestExtra\Core\Model\Note
+    ```
+
+### ParamFetcherListener
+    ```yaml
+    #routing.yml
+    mi_rest_extra_create:
+        ...
+        defaults:
+          ...
+          _params:
+              startDate:
+                  strict: true
+                  nullable: false
+    ```
+
+### ViewListener
+    ```yaml
+    #routing.yml
+    mi_rest_extra_create:
+        ...
+        defaults:
+          ...
+          _view:
+            serializerGroups: [list]
+    ```
 
 ## Contributing
 
