@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
 
-        <service id="mi.rest_extra_bundle.event_listener.param_fetcher" class="Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener">
+        <service id="mi.rest_extra_bundle.event_listener.param_fetcher" scope="request" class="Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener">
             <argument type="service" id="fos_rest.request.param_fetcher" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
