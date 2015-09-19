@@ -6,7 +6,7 @@
     <services>
 
         <service id="mi.rest_extra_bundle.event_listener.param_fetcher" class="Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener">
-            <argument type="expression">service('fos_rest.request.param_fetcher')</argument>
+            <argument type="service" id="fos_rest.request.param_fetcher" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
 

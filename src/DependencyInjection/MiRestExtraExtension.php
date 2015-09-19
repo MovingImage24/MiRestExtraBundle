@@ -4,8 +4,8 @@ namespace Mi\Bundle\RestExtraBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -13,20 +13,32 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  *
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
- * @codeCoverageIgnore
  */
-class MiRestExtraExtension extends Extension
+class MiRestExtraExtension extends ConfigurableExtension
 {
     /**
-     * Loads a specific configuration.
-     *
-     * @param array            $config    An array of configuration values
-     * @param ContainerBuilder $container A ContainerBuilder instance
+     * @inheritdoc
      */
-    public function load(array $config, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+
         $loader->load('event_listener.xml');
+
+        if ($mergedConfig['violations_listener'] === false) {
+            $container->removeDefinition('mi.rest_extra_bundle.event_listener.violations');
+        }
+
+        if ($mergedConfig['param_fetcher_listener'] === false) {
+            $container->removeDefinition('mi.rest_extra_bundle.event_listener.param_fetcher');
+        }
+
+        if ($mergedConfig['param_converter_listener'] === false) {
+            $container->removeDefinition('mi.rest_extra_bundle.event_listener.param_converter');
+        }
+
+        if ($mergedConfig['view_listener'] === false) {
+            $container->removeDefinition('mi.rest_extra_bundle.event_listener.view');
+        }
     }
 }
