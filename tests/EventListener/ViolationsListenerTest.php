@@ -21,11 +21,11 @@ class ViolationsListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function checkViolation()
     {
-        $event      = $this->prophesize(FilterControllerEvent::class);
-        $bag        = $this->prophesize(ParameterBagInterface::class);
+        $event = $this->prophesize(FilterControllerEvent::class);
+        $bag = $this->prophesize(ParameterBagInterface::class);
         $violations = $this->prophesize(ConstraintViolationListInterface::class);
 
-        $event->getRequest()->willReturn((object)['attributes' => $bag->reveal()]);
+        $event->getRequest()->willReturn((object) ['attributes' => $bag->reveal()]);
         $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
 
         $bag->get('violations')->willReturn($violations->reveal());
@@ -35,6 +35,5 @@ class ViolationsListenerTest extends \PHPUnit_Framework_TestCase
         $listener = new ViolationsListener('violations');
 
         call_user_func($listener, $event->reveal());
-
     }
 }

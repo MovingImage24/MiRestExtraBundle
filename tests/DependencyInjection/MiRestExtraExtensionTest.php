@@ -15,15 +15,16 @@ class MiRestExtraExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function loadAllListener() {
+    public function loadAllListener()
+    {
         $this->load();
 
         $this->assertContainerBuilderHasService('mi.rest_extra_bundle.event_listener.violations');
         $this->assertContainerBuilderHasService('mi.rest_extra_bundle.event_listener.param_fetcher');
         $this->assertContainerBuilderHasService('mi.rest_extra_bundle.event_listener.param_converter');
         $this->assertContainerBuilderHasService('mi.rest_extra_bundle.event_listener.view');
-
     }
+
     /**
      * @param string $configType
      * @param string $serviceId
@@ -44,7 +45,7 @@ class MiRestExtraExtensionTest extends AbstractExtensionTestCase
           ['violations_listener', 'mi.rest_extra_bundle.event_listener.violations'],
           ['param_fetcher_listener', 'mi.rest_extra_bundle.event_listener.param_fetcher'],
           ['param_converter_listener', 'mi.rest_extra_bundle.event_listener.param_converter'],
-          ['view_listener', 'mi.rest_extra_bundle.event_listener.view']
+          ['view_listener', 'mi.rest_extra_bundle.event_listener.view'],
         ];
     }
 
@@ -52,5 +53,4 @@ class MiRestExtraExtensionTest extends AbstractExtensionTestCase
     {
         return [new MiRestExtraExtension()];
     }
-
 }
