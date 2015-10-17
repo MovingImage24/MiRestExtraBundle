@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
 
         <service id="mi.rest_extra_bundle.event_listener.param_fetcher" scope="request" class="Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener">
@@ -11,6 +11,10 @@
         </service>
 
         <service id="mi.rest_extra_bundle.event_listener.view" class="Mi\Bundle\RestExtraBundle\EventListener\ViewListener">
+            <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
+        </service>
+
+        <service id="mi.rest_extra_bundle.event_listener.security" class="Mi\Bundle\RestExtraBundle\EventListener\SecurityListener">
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
 

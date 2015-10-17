@@ -40,5 +40,9 @@ class MiRestExtraExtension extends ConfigurableExtension
         if ($mergedConfig['view_listener'] === false) {
             $container->removeDefinition('mi.rest_extra_bundle.event_listener.view');
         }
+
+        if ($mergedConfig['security_listener'] === false) {
+            $container->removeDefinition('mi.rest_extra_bundle.event_listener.security');
+        }
     }
 }

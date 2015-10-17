@@ -22,10 +22,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('param_fetcher_listener')->defaultTrue()->end()
-                ->scalarNode('param_converter_listener')->defaultTrue()->end()
-                ->scalarNode('view_listener')->defaultTrue()->end()
-                ->scalarNode('violations_listener')->defaultTrue()->end()
+            ->scalarNode('param_fetcher_listener')->defaultTrue()->end()
+            ->scalarNode('param_converter_listener')->defaultTrue()->end()
+            ->scalarNode('view_listener')->defaultTrue()->end()
+            ->scalarNode('violations_listener')->defaultTrue()->end()
+            ->scalarNode('security_listener')->defaultFalse()->end()
             ->end();
 
         return $treeBuilder;
