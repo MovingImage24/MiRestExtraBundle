@@ -5,6 +5,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/mi/rest-extra-bundle/v/unstable)](https://packagist.org/packages/mi/rest-extra-bundle)
 [![Total Downloads](https://poser.pugx.org/mi/rest-extra-bundle/downloads)](https://packagist.org/packages/mi/rest-extra-bundle)
 [![License](https://poser.pugx.org/mi/rest-extra-bundle/license)](https://packagist.org/packages/mi/rest-extra-bundle)
+[![StyleCI](https://styleci.io/repos/42111359/shield)](https://styleci.io/repos/42111359)
 
 ## Overview
 
