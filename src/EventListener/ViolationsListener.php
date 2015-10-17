@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class ViolationsListener
 {
-    private  $violationErrorArgument;
+    private $violationErrorArgument;
 
     /**
      * @param string $violationErrorArgument

@@ -6,7 +6,6 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener;
 use Mi\Bundle\RestExtraBundle\Tests\EventListener\Fixtures\Controller;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -40,7 +39,7 @@ class ParamFetcherListenerTest extends \PHPUnit_Framework_TestCase
         $this->paramFetcher->setController([$controller, '__invoke'])->shouldBeCalled();
         $this->paramFetcher->addParam($param)->shouldBeCalled();
 
-        $event->getRequest()->willReturn((object)['attributes' => $attributes->reveal()]);
+        $event->getRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
         $event->getController()->willReturn($controller);
 
         call_user_func($this->listener, $event->reveal());

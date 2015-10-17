@@ -21,8 +21,8 @@ class ViewListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function setViewParam()
     {
-        $event   = $this->prophesize(FilterControllerEvent::class);
-        $bag     = $this->prophesize(ParameterBagInterface::class);
+        $event = $this->prophesize(FilterControllerEvent::class);
+        $bag = $this->prophesize(ParameterBagInterface::class);
         $request = $this->prophesize(Request::class);
 
         $request->attributes = $bag->reveal();
@@ -43,8 +43,8 @@ class ViewListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function dontSetViewParam()
     {
-        $event   = $this->prophesize(FilterControllerEvent::class);
-        $bag     = $this->prophesize(ParameterBagInterface::class);
+        $event = $this->prophesize(FilterControllerEvent::class);
+        $bag = $this->prophesize(ParameterBagInterface::class);
         $request = $this->prophesize(Request::class);
 
         $request->attributes = $bag->reveal();

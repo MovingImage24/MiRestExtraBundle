@@ -26,7 +26,7 @@ class ParamFetcherListener
      */
     public function __invoke(FilterControllerEvent $event)
     {
-        $request    = $event->getRequest();
+        $request = $event->getRequest();
         $controller = $event->getController();
 
         if (is_callable($controller) && method_exists($controller, '__invoke')) {
@@ -38,7 +38,7 @@ class ParamFetcherListener
         /** @var array $queryParams */
         if ($queryParams = $request->attributes->get('_params')) {
             foreach ($queryParams as $name => $queryParamConfig) {
-                $queryParam       = new QueryParam();
+                $queryParam = new QueryParam();
                 $queryParam->name = $name;
                 foreach ($queryParamConfig as $key => $value) {
                     $queryParam->{$key} = $value;

@@ -21,10 +21,10 @@ class ParamConverterListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function checkViolation()
     {
-        $listener            = new ParamConverterListener();
-        $event               = $this->prophesize(FilterControllerEvent::class);
-        $request             = $this->prophesize(Request::class);
-        $attributes          = $this->prophesize(ParameterBagInterface::class);
+        $listener = new ParamConverterListener();
+        $event = $this->prophesize(FilterControllerEvent::class);
+        $request = $this->prophesize(Request::class);
+        $attributes = $this->prophesize(ParameterBagInterface::class);
         $request->attributes = $attributes->reveal();
 
         $data = [
@@ -37,7 +37,6 @@ class ParamConverterListenerTest extends \PHPUnit_Framework_TestCase
         }))->shouldBeCalled();
 
         $event->getRequest()->willReturn($request->reveal());
-
 
         call_user_func($listener, $event->reveal());
     }
