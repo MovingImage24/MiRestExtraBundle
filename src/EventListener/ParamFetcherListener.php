@@ -38,7 +38,6 @@ class ParamFetcherListener
         /** @var array $queryParams */
         if ($queryParams = $request->attributes->get('_params')) {
             foreach ($queryParams as $name => $queryParamConfig) {
-
                 $class = QueryParam::class;
 
                 if (array_key_exists('class', $queryParamConfig)) {
