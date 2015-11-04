@@ -30,7 +30,7 @@ class ParamFetcherListener
         $controller = $event->getController();
 
         if (is_callable($controller) && method_exists($controller, '__invoke')) {
-            $controller = array($controller, '__invoke');
+            $controller = [$controller, '__invoke'];
         }
 
         $this->paramFetcher->setController($controller);
@@ -38,7 +38,15 @@ class ParamFetcherListener
         /** @var array $queryParams */
         if ($queryParams = $request->attributes->get('_params')) {
             foreach ($queryParams as $name => $queryParamConfig) {
-                $queryParam = new QueryParam();
+
+                $class = QueryParam::class;
+
+                if (array_key_exists('class', $queryParamConfig)) {
+                    $class = $queryParamConfig['class'];
+                    unset($queryParamConfig['class']);
+                }
+
+                $queryParam = new $class;
                 $queryParam->name = $name;
                 foreach ($queryParamConfig as $key => $value) {
                     $queryParam->{$key} = $value;

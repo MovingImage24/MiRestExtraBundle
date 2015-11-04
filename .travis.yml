@@ -7,4 +7,4 @@ before_script:
   - export PATH=./vendor/bin:$PATH
 
 script:
-  - phpunit -v --coverage-clover=coverage.clover
+  - phpunit -v

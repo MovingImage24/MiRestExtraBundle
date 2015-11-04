@@ -3,6 +3,7 @@
 namespace Mi\Bundle\RestExtraBundle\Tests\EventListener;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener;
 use Mi\Bundle\RestExtraBundle\Tests\EventListener\Fixtures\Controller;
@@ -21,6 +22,29 @@ class ParamFetcherListenerTest extends \PHPUnit_Framework_TestCase
      */
     private $listener;
     private $paramFetcher;
+
+    /**
+     * @test
+     */
+    public function shouldSetParamsWithOtherClass()
+    {
+        $event = $this->prophesize(FilterControllerEvent::class);
+        $attributes = $this->prophesize(ParameterBagInterface::class);
+        $controller = new Controller();
+        $param = new RequestParam();
+        $param->name = 'test';
+        $param->strict = false;
+
+        $attributes->get('_params')->willReturn(['test' => ['strict' => false, 'class' => RequestParam::class]]);
+
+        $this->paramFetcher->setController([$controller, '__invoke'])->shouldBeCalled();
+        $this->paramFetcher->addParam($param)->shouldBeCalled();
+
+        $event->getRequest()->willReturn((object)['attributes' => $attributes->reveal()]);
+        $event->getController()->willReturn($controller);
+
+        call_user_func($this->listener, $event->reveal());
+    }
 
     /**
      * @test
