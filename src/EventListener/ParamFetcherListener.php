@@ -46,7 +46,7 @@ class ParamFetcherListener
                     unset($queryParamConfig['class']);
                 }
 
-                $queryParam = new $class;
+                $queryParam = new $class();
                 $queryParam->name = $name;
                 foreach ($queryParamConfig as $key => $value) {
                     $queryParam->{$key} = $value;
