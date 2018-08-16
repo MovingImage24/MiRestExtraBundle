@@ -7,22 +7,28 @@
 
         <service id="mi.rest_extra_bundle.event_listener.param_fetcher" class="Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener">
             <argument type="service" id="fos_rest.request.param_fetcher" />
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
 
         <service id="mi.rest_extra_bundle.event_listener.view" class="Mi\Bundle\RestExtraBundle\EventListener\ViewListener">
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
 
         <service id="mi.rest_extra_bundle.event_listener.security" class="Mi\Bundle\RestExtraBundle\EventListener\SecurityListener">
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="6"/>
         </service>
 
         <service id="mi.rest_extra_bundle.event_listener.param_converter" class="Mi\Bundle\RestExtraBundle\EventListener\ParamConverterListener">
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="10" />
         </service>
+
         <service id="mi.rest_extra_bundle.event_listener.violations" class="Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener">
             <argument>%fos_rest.converter.request_body.validation_errors_argument%</argument>
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="-5"/>
         </service>
 

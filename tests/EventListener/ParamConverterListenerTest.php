@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
@@ -22,11 +22,12 @@ class ParamConverterListenerTest extends TestCase
      */
     public function checkViolation()
     {
-        $listener = new ParamConverterListener();
-        $event = $this->prophesize(FilterControllerEvent::class);
-        $request = $this->prophesize(Request::class);
+        $requestStack = $this->prophesize(RequestStack::class);
         $attributes = $this->prophesize(ParameterBagInterface::class);
-        $request->attributes = $attributes->reveal();
+        $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
+
+        $listener = new ParamConverterListener($requestStack->reveal());
+        $event = $this->prophesize(FilterControllerEvent::class);
 
         $data = [
             'test' => ['name' => 'dummy'],
@@ -37,7 +38,6 @@ class ParamConverterListenerTest extends TestCase
             return $arg['test'] instanceof ParamConverter;
         }))->shouldBeCalled();
 
-        $event->getRequest()->willReturn($request->reveal());
 
         call_user_func($listener, $event->reveal());
     }

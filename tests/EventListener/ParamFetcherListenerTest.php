@@ -9,7 +9,6 @@ use Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener;
 use Mi\Bundle\RestExtraBundle\Tests\EventListener\Fixtures\Controller;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -26,7 +25,6 @@ class ParamFetcherListenerTest extends TestCase
     private $listener;
     private $paramFetcher;
     private $requestStack;
-    private $request;
     private $event;
     private $attributes;
 
@@ -78,7 +76,6 @@ class ParamFetcherListenerTest extends TestCase
     {
         $this->requestStack = $this->prophesize(RequestStack::class);
         $this->paramFetcher = $this->prophesize(ParamFetcher::class);
-        $this->request = $this->prophesize(Request::class);
         $this->event = $this->prophesize(FilterControllerEvent::class);
         $this->attributes = $this->prophesize(ParameterBagInterface::class);
 

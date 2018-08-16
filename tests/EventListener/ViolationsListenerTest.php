@@ -7,6 +7,7 @@ use Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -22,18 +23,19 @@ class ViolationsListenerTest extends TestCase
      */
     public function checkViolation()
     {
-        $event = $this->prophesize(FilterControllerEvent::class);
-        $bag = $this->prophesize(ParameterBagInterface::class);
         $violations = $this->prophesize(ConstraintViolationListInterface::class);
-
-        $event->getRequest()->willReturn((object) ['attributes' => $bag->reveal()]);
-        $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
-
-        $bag->get('violations')->willReturn($violations->reveal());
-
         $violations->count()->willReturn(1);
 
-        $listener = new ViolationsListener('violations');
+        $requestStack = $this->prophesize(RequestStack::class);
+        $attributes = $this->prophesize(ParameterBagInterface::class);
+        $attributes->get('violations')->willReturn($violations->reveal());
+        $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
+
+        $event = $this->prophesize(FilterControllerEvent::class);
+
+        $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
+
+        $listener = new ViolationsListener('violations', $requestStack->reveal());
 
         call_user_func($listener, $event->reveal());
     }

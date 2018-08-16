@@ -7,7 +7,7 @@ use Mi\Bundle\RestExtraBundle\EventListener\ViewListener;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
@@ -22,19 +22,15 @@ class ViewListenerTest extends TestCase
      */
     public function setViewParam()
     {
+        $requestStack = $this->prophesize(RequestStack::class);
+        $attributes = $this->prophesize(ParameterBagInterface::class);
+        $attributes->get('_view')->willReturn(['statusCode' => 401]);
+        $attributes->set('_view', Argument::type(View::class))->shouldBeCalled();
+        $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
+
         $event = $this->prophesize(FilterControllerEvent::class);
-        $bag = $this->prophesize(ParameterBagInterface::class);
-        $request = $this->prophesize(Request::class);
 
-        $request->attributes = $bag->reveal();
-
-        $event->getRequest()->willReturn($request->reveal());
-
-        $bag->get('_view')->willReturn(['statusCode' => 401]);
-
-        $bag->set('_view', Argument::type(View::class))->shouldBeCalled();
-
-        $listener = new ViewListener();
+        $listener = new ViewListener($requestStack->reveal());
 
         call_user_func($listener, $event->reveal());
     }
@@ -44,17 +40,14 @@ class ViewListenerTest extends TestCase
      */
     public function dontSetViewParam()
     {
+        $requestStack = $this->prophesize(RequestStack::class);
+        $attributes = $this->prophesize(ParameterBagInterface::class);
+        $attributes->get('_view')->willReturn(null);
+        $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
+
         $event = $this->prophesize(FilterControllerEvent::class);
-        $bag = $this->prophesize(ParameterBagInterface::class);
-        $request = $this->prophesize(Request::class);
 
-        $request->attributes = $bag->reveal();
-
-        $event->getRequest()->willReturn($request->reveal());
-
-        $bag->get('_view')->willReturn(null);
-
-        $listener = new ViewListener();
+        $listener = new ViewListener($requestStack->reveal());
 
         call_user_func($listener, $event->reveal());
     }
