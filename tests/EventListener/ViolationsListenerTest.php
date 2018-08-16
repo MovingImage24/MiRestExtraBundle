@@ -4,6 +4,7 @@ namespace Mi\Bundle\RestExtraBundle\Tests\EventListener;
 
 use Mi\Bundle\RestExtraBundle\Controller\ViolationsController;
 use Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  *
  * @covers Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener
  */
-class ViolationsListenerTest extends \PHPUnit_Framework_TestCase
+class ViolationsListenerTest extends TestCase
 {
     /**
      * @test

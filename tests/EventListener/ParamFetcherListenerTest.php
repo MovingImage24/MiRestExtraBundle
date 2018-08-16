@@ -7,7 +7,10 @@ use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener;
 use Mi\Bundle\RestExtraBundle\Tests\EventListener\Fixtures\Controller;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
@@ -15,35 +18,39 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
  *
  * @covers Mi\Bundle\RestExtraBundle\EventListener\ParamFetcherListener
  */
-class ParamFetcherListenerTest extends \PHPUnit_Framework_TestCase
+class ParamFetcherListenerTest extends TestCase
 {
     /**
      * @var ParamFetcherListener
      */
     private $listener;
     private $paramFetcher;
+    private $requestStack;
+    private $request;
+    private $event;
+    private $attributes;
 
     /**
      * @test
      */
     public function shouldSetParamsWithOtherClass()
     {
-        $event = $this->prophesize(FilterControllerEvent::class);
-        $attributes = $this->prophesize(ParameterBagInterface::class);
         $controller = new Controller();
         $param = new RequestParam();
         $param->name = 'test';
         $param->strict = false;
 
-        $attributes->get('_params')->willReturn(['test' => ['strict' => false, 'class' => RequestParam::class]]);
+        $this->attributes->get('_params')->willReturn(['test' => ['strict' => false, 'class' => RequestParam::class]]);
 
         $this->paramFetcher->setController([$controller, '__invoke'])->shouldBeCalled();
         $this->paramFetcher->addParam($param)->shouldBeCalled();
 
-        $event->getRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
-        $event->getController()->willReturn($controller);
+        $this->attributes->get('_params')->willReturn(['test' => ['strict' => false, 'class' => RequestParam::class]]);
 
-        call_user_func($this->listener, $event->reveal());
+        $this->requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $this->attributes->reveal()]);
+        $this->event->getController()->willReturn($controller);
+
+        call_user_func($this->listener, $this->event->reveal());
     }
 
     /**
@@ -51,27 +58,30 @@ class ParamFetcherListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldSetParams()
     {
-        $event = $this->prophesize(FilterControllerEvent::class);
-        $attributes = $this->prophesize(ParameterBagInterface::class);
         $controller = new Controller();
         $param = new QueryParam();
         $param->name = 'test';
         $param->strict = false;
 
-        $attributes->get('_params')->willReturn(['test' => ['strict' => false]]);
+        $this->attributes->get('_params')->willReturn(['test' => ['strict' => false]]);
 
         $this->paramFetcher->setController([$controller, '__invoke'])->shouldBeCalled();
         $this->paramFetcher->addParam($param)->shouldBeCalled();
 
-        $event->getRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
-        $event->getController()->willReturn($controller);
+        $this->requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $this->attributes->reveal()]);
+        $this->event->getController()->willReturn($controller);
 
-        call_user_func($this->listener, $event->reveal());
+        call_user_func($this->listener, $this->event->reveal());
     }
 
     protected function setUp()
     {
+        $this->requestStack = $this->prophesize(RequestStack::class);
         $this->paramFetcher = $this->prophesize(ParamFetcher::class);
-        $this->listener = new ParamFetcherListener($this->paramFetcher->reveal());
+        $this->request = $this->prophesize(Request::class);
+        $this->event = $this->prophesize(FilterControllerEvent::class);
+        $this->attributes = $this->prophesize(ParameterBagInterface::class);
+
+        $this->listener = new ParamFetcherListener($this->paramFetcher->reveal(), $this->requestStack->reveal());
     }
 }

@@ -3,6 +3,7 @@
 namespace Mi\Bundle\RestExtraBundle\Tests\EventListener;
 
 use Mi\Bundle\RestExtraBundle\EventListener\ParamConverterListener;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
  *
  * @covers Mi\Bundle\RestExtraBundle\EventListener\ParamConverterListener
  */
-class ParamConverterListenerTest extends \PHPUnit_Framework_TestCase
+class ParamConverterListenerTest extends TestCase
 {
     /**
      * @test

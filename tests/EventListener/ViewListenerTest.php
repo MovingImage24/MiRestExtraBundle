@@ -4,6 +4,7 @@ namespace Mi\Bundle\RestExtraBundle\Tests\EventListener;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use Mi\Bundle\RestExtraBundle\EventListener\ViewListener;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
  *
  * @covers Mi\Bundle\RestExtraBundle\EventListener\ViewListener
  */
-class ViewListenerTest extends \PHPUnit_Framework_TestCase
+class ViewListenerTest extends TestCase
 {
     /**
      * @test
