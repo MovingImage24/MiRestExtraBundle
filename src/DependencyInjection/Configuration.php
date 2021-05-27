@@ -5,22 +5,14 @@ namespace Mi\Bundle\RestExtraBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
- * @codeCoverageIgnore
- */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('mi_rest_extra', 'array');
+        $treeBuilder = new TreeBuilder('mi_rest_extra', 'array');
 
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
             ->scalarNode('param_fetcher_listener')->defaultTrue()->end()
             ->scalarNode('param_converter_listener')->defaultTrue()->end()

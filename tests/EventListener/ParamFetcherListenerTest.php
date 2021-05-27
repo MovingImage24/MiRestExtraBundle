@@ -72,7 +72,7 @@ class ParamFetcherListenerTest extends TestCase
         call_user_func($this->listener, $this->event->reveal());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->requestStack = $this->prophesize(RequestStack::class);
         $this->paramFetcher = $this->prophesize(ParamFetcher::class);

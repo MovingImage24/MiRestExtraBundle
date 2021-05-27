@@ -4,19 +4,15 @@ namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  */
 class ParamConverterListener
 {
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
@@ -24,10 +20,8 @@ class ParamConverterListener
 
     /**
      * Modifies the ParamConverterManager instance.
-     *
-     * @param FilterControllerEvent $event
      */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
 

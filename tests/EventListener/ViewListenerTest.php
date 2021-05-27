@@ -24,8 +24,8 @@ class ViewListenerTest extends TestCase
     {
         $requestStack = $this->prophesize(RequestStack::class);
         $attributes = $this->prophesize(ParameterBagInterface::class);
-        $attributes->get('_view')->willReturn(['statusCode' => 401]);
-        $attributes->set('_view', Argument::type(View::class))->shouldBeCalled();
+        $attributes->get('_template')->willReturn(['statusCode' => 401]);
+        $attributes->set('_template', Argument::type(View::class))->shouldBeCalled();
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
         $event = $this->prophesize(FilterControllerEvent::class);
@@ -42,7 +42,7 @@ class ViewListenerTest extends TestCase
     {
         $requestStack = $this->prophesize(RequestStack::class);
         $attributes = $this->prophesize(ParameterBagInterface::class);
-        $attributes->get('_view')->willReturn(null);
+        $attributes->get('_template')->willReturn(null);
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
         $event = $this->prophesize(FilterControllerEvent::class);

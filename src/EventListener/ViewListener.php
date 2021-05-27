@@ -29,8 +29,10 @@ class ViewListener
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($viewParams = $request->attributes->get('_view')) {
-            $request->attributes->set('_view', new View($viewParams));
+        if ($viewParams = $request->attributes->get('_template')) {
+            $value = new View($viewParams);
+            $value->setTemplate('hopefully_not_used_template');
+            $request->attributes->set('_template', $value);
         }
     }
 }

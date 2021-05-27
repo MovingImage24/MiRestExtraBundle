@@ -3,23 +3,17 @@
   "description": "Helper to avoid annotations with FOSRestBundle and SensioFrameworkExtraBundle",
   "type": "symfony-bundle",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Alexander Miehe",
-      "email": "alexander.miehe@movingimage.com"
-    }
-  ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=7.0.0",
-    "friendsofsymfony/rest-bundle": "^1.8",
-    "sensio/framework-extra-bundle": "^3.0",
-    "phpunit/phpunit": "^6.0"
+    "php": ">=7.4.0",
+    "friendsofsymfony/rest-bundle": "^3.0",
+    "sensio/framework-extra-bundle": "^6.1"
   },
   "require-dev": {
-    "symfony/framework-bundle": "~3.4",
-    "symfony/validator": "^3.4",
-    "matthiasnoback/symfony-dependency-injection-test": "^2.0"
+    "matthiasnoback/symfony-dependency-injection-test": "^4.2",
+    "phpunit/phpunit": "^9.0",
+    "symfony/framework-bundle": "^5.2",
+    "symfony/validator": "^5.2"
   },
   "autoload": {
     "psr-4": {
@@ -35,5 +29,8 @@
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }

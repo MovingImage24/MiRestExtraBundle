@@ -12,12 +12,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class ViolationsController
 {
-    /**
-     * @param $violations ConstraintViolationListInterface
-     *
-     * @return View
-     */
-    public function __invoke(ConstraintViolationListInterface $violations)
+    public function __invoke(ConstraintViolationListInterface $violations): View
     {
         return new View($violations, 400);
     }
