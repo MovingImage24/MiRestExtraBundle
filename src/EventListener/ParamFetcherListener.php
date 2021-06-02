@@ -4,7 +4,7 @@ namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -12,26 +12,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ParamFetcherListener
 {
-    /** @var ParamFetcher */
-    private $paramFetcher;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @param ParamFetcher $paramFetcher
-     * @param RequestStack $requestStack
-     */
-    public function __construct(ParamFetcher $paramFetcher, RequestStack $requestStack)
+    public function __construct(private ParamFetcher $paramFetcher, private RequestStack $requestStack)
     {
-        $this->paramFetcher = $paramFetcher;
-        $this->requestStack = $requestStack;
     }
 
     /**
-     * @param FilterControllerEvent $event
+     * @param ControllerEvent $event
      */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
         $controller = $event->getController();

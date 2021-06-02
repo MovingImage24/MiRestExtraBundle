@@ -8,12 +8,13 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  *
- * @covers Mi\Bundle\RestExtraBundle\EventListener\ViewListener
+ * @covers ViewListener
  */
 class ViewListenerTest extends TestCase
 {
@@ -28,7 +29,7 @@ class ViewListenerTest extends TestCase
         $attributes->set('_view', Argument::type(View::class))->shouldBeCalled();
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $listener = new ViewListener($requestStack->reveal());
 
@@ -45,7 +46,7 @@ class ViewListenerTest extends TestCase
         $attributes->get('_view')->willReturn(null);
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $listener = new ViewListener($requestStack->reveal());
 

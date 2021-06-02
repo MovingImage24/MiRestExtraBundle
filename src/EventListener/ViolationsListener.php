@@ -4,7 +4,7 @@ namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use Mi\Bundle\RestExtraBundle\Controller\ViolationsController;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -12,25 +12,11 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class ViolationsListener
 {
-    private $violationErrorArgument;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @param string       $violationErrorArgument
-     * @param RequestStack $requestStack
-     */
-    public function __construct($violationErrorArgument, RequestStack $requestStack)
+    public function __construct(private $violationErrorArgument, private RequestStack $requestStack)
     {
-        $this->violationErrorArgument = $violationErrorArgument;
-        $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
 

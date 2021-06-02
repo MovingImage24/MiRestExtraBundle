@@ -8,12 +8,12 @@ use Prophecy\Argument;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  *
- * @covers Mi\Bundle\RestExtraBundle\EventListener\SecurityListener
+ * @covers SecurityListener
  */
 class SecurityListenerTest extends TestCase
 {
@@ -28,11 +28,11 @@ class SecurityListenerTest extends TestCase
         $attributes->set('_security', Argument::type(Security::class))->shouldBeCalled();
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $listener = new SecurityListener($requestStack->reveal());
 
-        call_user_func($listener, $event->reveal());
+        call_user_func($listener, $event);
     }
 
     /**
@@ -45,7 +45,7 @@ class SecurityListenerTest extends TestCase
         $attributes->get('_security')->willReturn(null);
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $listener = new SecurityListener($requestStack->reveal());
 

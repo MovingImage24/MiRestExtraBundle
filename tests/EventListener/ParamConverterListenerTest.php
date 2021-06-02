@@ -8,12 +8,13 @@ use Prophecy\Argument;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  *
- * @covers Mi\Bundle\RestExtraBundle\EventListener\ParamConverterListener
+ * @covers ParamConverterListener
  */
 class ParamConverterListenerTest extends TestCase
 {
@@ -39,6 +40,6 @@ class ParamConverterListenerTest extends TestCase
         }))->shouldBeCalled();
 
 
-        call_user_func($listener, $event->reveal());
+        call_user_func($listener, $event);
     }
 }

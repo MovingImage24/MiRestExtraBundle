@@ -8,13 +8,13 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  *
- * @covers Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener
+ * @covers ViolationsListener
  */
 class ViolationsListenerTest extends TestCase
 {
@@ -31,7 +31,7 @@ class ViolationsListenerTest extends TestCase
         $attributes->get('violations')->willReturn($violations->reveal());
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
 

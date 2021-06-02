@@ -4,28 +4,18 @@ namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  */
 class ViewListener
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @param RequestStack $requestStack
-     */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
 
