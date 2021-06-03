@@ -12,8 +12,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ParamFetcherListener
 {
-    public function __construct(private ParamFetcher $paramFetcher, private RequestStack $requestStack)
+    private ParamFetcher $paramFetcher;
+    private RequestStack $requestStack;
+
+    public function __construct(ParamFetcher $paramFetcher, RequestStack $requestStack)
     {
+        $this->requestStack = $requestStack;
+        $this->paramFetcher = $paramFetcher;
     }
 
     /**

@@ -12,8 +12,14 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class ViolationsListener
 {
-    public function __construct(private $violationErrorArgument, private RequestStack $requestStack)
+    private string $violationErrorArgument;
+
+    private RequestStack $requestStack;
+
+    public function __construct(string $violationErrorArgument, RequestStack $requestStack)
     {
+        $this->requestStack = $requestStack;
+        $this->violationErrorArgument = $violationErrorArgument;
     }
 
     public function __invoke(ControllerEvent $event)

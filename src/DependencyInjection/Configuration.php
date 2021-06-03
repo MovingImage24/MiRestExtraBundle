@@ -18,9 +18,8 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('mi_rest_extra');
-        $rootNode = $treeBuilder->getRootNode();
-
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
             ->scalarNode('param_fetcher_listener')->defaultTrue()->end()
             ->scalarNode('param_converter_listener')->defaultTrue()->end()

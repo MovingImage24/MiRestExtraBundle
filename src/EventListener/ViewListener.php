@@ -11,8 +11,11 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
  */
 class ViewListener
 {
-    public function __construct(private RequestStack $requestStack)
+    private RequestStack $requestStack;
+
+    public function __construct(RequestStack $requestStack)
     {
+        $this->requestStack = $requestStack;
     }
 
     public function __invoke(ControllerEvent $event)
