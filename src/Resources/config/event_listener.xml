@@ -27,7 +27,7 @@
         </service>
 
         <service id="mi.rest_extra_bundle.event_listener.violations" class="Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener">
-            <argument>%fos_rest.converter.request_body.validation_errors_argument%</argument>
+            <argument>%fos_rest.body_converter.validation_errors_argument%</argument>
             <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="kernel.controller" method="__invoke" priority="-5"/>
         </service>
