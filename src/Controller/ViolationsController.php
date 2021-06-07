@@ -6,18 +6,11 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
  * @codeCoverageIgnore
  */
 class ViolationsController
 {
-    /**
-     * @param $violations ConstraintViolationListInterface
-     *
-     * @return View
-     */
-    public function __invoke(ConstraintViolationListInterface $violations)
+    public function __invoke(ConstraintViolationListInterface $violations): View
     {
         return new View($violations, 400);
     }

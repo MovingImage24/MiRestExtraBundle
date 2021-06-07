@@ -6,9 +6,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class ViewListener
 {
     private RequestStack $requestStack;
@@ -22,8 +19,10 @@ class ViewListener
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($viewParams = $request->attributes->get('_view')) {
-            $request->attributes->set('_view', new View($viewParams));
+        if ($viewParams = $request->attributes->get('_template')) {
+            $value = new View($viewParams);
+            $value->setTemplate('hopefully_not_used_template');
+            $request->attributes->set('_template', $value);
         }
     }
 }

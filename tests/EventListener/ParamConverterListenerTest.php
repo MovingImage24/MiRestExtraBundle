@@ -40,6 +40,6 @@ class ParamConverterListenerTest extends TestCase
         }))->shouldBeCalled();
 
 
-        call_user_func($listener, $event);
+        call_user_func($listener, $event->reveal());
     }
 }

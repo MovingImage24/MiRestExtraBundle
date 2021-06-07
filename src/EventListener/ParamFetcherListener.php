@@ -7,9 +7,6 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class ParamFetcherListener
 {
     private ParamFetcher $paramFetcher;

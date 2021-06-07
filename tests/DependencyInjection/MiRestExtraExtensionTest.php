@@ -42,10 +42,10 @@ class MiRestExtraExtensionTest extends AbstractExtensionTestCase
     public function getListenerConfig()
     {
         return [
-            ['violations_listener', 'mi.rest_extra_bundle.event_listener.violations'],
-            ['param_fetcher_listener', 'mi.rest_extra_bundle.event_listener.param_fetcher'],
-            ['param_converter_listener', 'mi.rest_extra_bundle.event_listener.param_converter'],
-            ['view_listener', 'mi.rest_extra_bundle.event_listener.view'],
+          ['violations_listener', 'mi.rest_extra_bundle.event_listener.violations'],
+          ['param_fetcher_listener', 'mi.rest_extra_bundle.event_listener.param_fetcher'],
+          ['param_converter_listener', 'mi.rest_extra_bundle.event_listener.param_converter'],
+          ['view_listener', 'mi.rest_extra_bundle.event_listener.view'],
         ];
     }
 

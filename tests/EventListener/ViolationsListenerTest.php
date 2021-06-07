@@ -35,7 +35,7 @@ class ViolationsListenerTest extends TestCase
 
         $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
 
-        $listener = new ViolationsListener('violations', $requestStack->reveal());
+        $listener = new ViolationsListener($requestStack->reveal());
 
         call_user_func($listener, $event->reveal());
     }

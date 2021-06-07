@@ -6,9 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class ParamConverterListener
 {
     private RequestStack $requestStack;

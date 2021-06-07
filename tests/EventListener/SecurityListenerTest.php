@@ -32,7 +32,7 @@ class SecurityListenerTest extends TestCase
 
         $listener = new SecurityListener($requestStack->reveal());
 
-        call_user_func($listener, $event);
+        call_user_func($listener, $event->reveal());
     }
 
     /**
