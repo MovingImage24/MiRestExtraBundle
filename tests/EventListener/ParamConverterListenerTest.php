@@ -12,8 +12,6 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 
 /**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
  * @covers ParamConverterListener
  */
 class ParamConverterListenerTest extends TestCase
@@ -28,7 +26,7 @@ class ParamConverterListenerTest extends TestCase
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
         $listener = new ParamConverterListener($requestStack->reveal());
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $event = $this->prophesize(ControllerEvent::class);
 
         $data = [
             'test' => ['name' => 'dummy'],

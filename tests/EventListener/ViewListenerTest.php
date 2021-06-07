@@ -12,8 +12,6 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
  * @covers ViewListener
  */
 class ViewListenerTest extends TestCase

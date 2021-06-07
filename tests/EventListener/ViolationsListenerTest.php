@@ -12,8 +12,6 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
  * @covers ViolationsListener
  */
 class ViolationsListenerTest extends TestCase
