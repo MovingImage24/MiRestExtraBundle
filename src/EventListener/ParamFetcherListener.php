@@ -26,7 +26,7 @@ class ParamFetcherListener
         $request = $this->requestStack->getCurrentRequest();
         $controller = $event->getController();
 
-        if (is_callable($controller) && method_exists($controller, '__invoke')) {
+        if (is_object($controller) && method_exists($controller, '__invoke')) {
             $controller = [$controller, '__invoke'];
         }
 
