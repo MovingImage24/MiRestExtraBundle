@@ -5,7 +5,7 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8.0",
     "friendsofsymfony/rest-bundle": "^3.0",
     "sensio/framework-extra-bundle": "^6.1"
   },
