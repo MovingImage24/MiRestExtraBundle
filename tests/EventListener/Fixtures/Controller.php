@@ -2,10 +2,9 @@
 
 namespace Mi\Bundle\RestExtraBundle\Tests\EventListener\Fixtures;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
-class Controller
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class Controller extends AbstractController
 {
     public function __invoke()
     {

@@ -11,6 +11,8 @@
   },
   "require-dev": {
     "matthiasnoback/symfony-dependency-injection-test": "^4.2",
+    "mockery/mockery": "^1.4",
+    "phpspec/prophecy-phpunit": "^2.0",
     "phpunit/phpunit": "^9.0",
     "symfony/framework-bundle": "^5.2",
     "symfony/validator": "^5.2"
