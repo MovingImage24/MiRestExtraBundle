@@ -58,6 +58,7 @@ class ViewListenerTest extends TestCase
     {
         $requestStack = $this->prophesize(RequestStack::class);
         $attributes = $this->prophesize(ParameterBagInterface::class);
+        $attributes->set()->shouldNotBeCalled();
         $attributes->get('_template')->willReturn(null);
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 

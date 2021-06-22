@@ -58,6 +58,7 @@ class SecurityListenerTest extends TestCase
         $requestStack = $this->prophesize(RequestStack::class);
         $attributes = $this->prophesize(ParameterBagInterface::class);
         $attributes->get('_security')->willReturn(null);
+        $attributes->set()->shouldNotBeCalled();
         $requestStack->getCurrentRequest()->willReturn((object)['attributes' => $attributes->reveal()]);
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)
@@ -78,5 +79,7 @@ class SecurityListenerTest extends TestCase
         $listener = new SecurityListener($requestStack->reveal());
 
         call_user_func($listener, $event);
+
+        static::assertNull($requestStack->reveal()->getCurrentRequest()->attributes->get('_security'));
     }
 }

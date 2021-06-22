@@ -48,11 +48,10 @@ class ViolationsListenerTest extends TestCase
 
         $requestType = HttpKernelInterface::MAIN_REQUEST;
         $event = new  ControllerEvent($kernel, $controller, $request, $requestType);
-
-       // $event->setController()->shouldBeCalled();
-
         $listener = new ViolationsListener($requestStack->reveal());
 
         call_user_func($listener, $event);
+
+        static::assertInstanceOf(ViolationsController::class, $event->getController());
     }
 }
