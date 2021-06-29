@@ -1,42 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class ParamFetcherListener
 {
-    /** @var ParamFetcher */
-    private $paramFetcher;
+    private ParamFetcher $paramFetcher;
+    private RequestStack $requestStack;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @param ParamFetcher $paramFetcher
-     * @param RequestStack $requestStack
-     */
     public function __construct(ParamFetcher $paramFetcher, RequestStack $requestStack)
     {
-        $this->paramFetcher = $paramFetcher;
         $this->requestStack = $requestStack;
+        $this->paramFetcher = $paramFetcher;
     }
 
     /**
-     * @param FilterControllerEvent $event
+     * @param ControllerEvent $event
      */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
         $controller = $event->getController();
 
-        if (is_callable($controller) && method_exists($controller, '__invoke')) {
+        if (is_object($controller) && method_exists($controller, '__invoke')) {
             $controller = [$controller, '__invoke'];
         }
 

@@ -1,31 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class SecurityListener
 {
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
 

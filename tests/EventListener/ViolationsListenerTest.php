@@ -5,19 +5,22 @@ namespace Mi\Bundle\RestExtraBundle\Tests\EventListener;
 use Mi\Bundle\RestExtraBundle\Controller\ViolationsController;
 use Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use stdClass;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- *
- * @covers Mi\Bundle\RestExtraBundle\EventListener\ViolationsListener
+ * @covers ViolationsListener
  */
 class ViolationsListenerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -31,12 +34,24 @@ class ViolationsListenerTest extends TestCase
         $attributes->get('violations')->willReturn($violations->reveal());
         $requestStack->getCurrentRequest()->willReturn((object) ['attributes' => $attributes->reveal()]);
 
-        $event = $this->prophesize(FilterControllerEvent::class);
+        $kernel = $this->getMockBuilder(HttpKernelInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $event->setController(Argument::type(ViolationsController::class))->shouldBeCalled();
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $listener = new ViolationsListener('violations', $requestStack->reveal());
+        $controller = $this->getMockBuilder(stdClass::class)
+            ->addMethods(['__invoke'])
+            ->getMock();
 
-        call_user_func($listener, $event->reveal());
+        $requestType = HttpKernelInterface::MAIN_REQUEST;
+        $event = new  ControllerEvent($kernel, $controller, $request, $requestType);
+        $listener = new ViolationsListener($requestStack->reveal());
+
+        call_user_func($listener, $event);
+
+        static::assertInstanceOf(ViolationsController::class, $event->getController());
     }
 }

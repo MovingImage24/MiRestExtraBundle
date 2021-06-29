@@ -1,40 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mi\Bundle\RestExtraBundle\EventListener;
 
 use Mi\Bundle\RestExtraBundle\Controller\ViolationsController;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- * @author Alexander Miehe <alexander.miehe@movingimage.com>
- */
 class ViolationsListener
 {
-    private $violationErrorArgument;
+    private RequestStack $requestStack;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @param string       $violationErrorArgument
-     * @param RequestStack $requestStack
-     */
-    public function __construct($violationErrorArgument, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->violationErrorArgument = $violationErrorArgument;
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function __invoke(FilterControllerEvent $event)
+    public function __invoke(ControllerEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        $violations = $request->attributes->get($this->violationErrorArgument);
+        $violations = $request->attributes->get('violations');
         if ($violations instanceof ConstraintViolationListInterface && $violations->count() > 0) {
             $event->setController(new ViolationsController());
         }

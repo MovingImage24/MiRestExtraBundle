@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mi\Bundle\RestExtraBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
@@ -8,7 +10,7 @@ use Mi\Bundle\RestExtraBundle\DependencyInjection\MiRestExtraExtension;
 /**
  * @author Alexander Miehe <alexander.miehe@movingimage.com>
  *
- * @covers Mi\Bundle\RestExtraBundle\DependencyInjection\MiRestExtraExtension
+ * @covers MiRestExtraExtension
  */
 class MiRestExtraExtensionTest extends AbstractExtensionTestCase
 {
@@ -49,7 +51,7 @@ class MiRestExtraExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [new MiRestExtraExtension()];
     }
